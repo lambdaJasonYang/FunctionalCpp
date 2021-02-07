@@ -51,7 +51,6 @@ int main(){
 
     //lambda expression  = (lambda a: a + 9)(8)
     int pp = [](int x){return x + 9;}(8);
-    print(pp);
 //--------------------------------------------------------
     vector<int> intlst = {1,2,3,4};
     vector<int> results(intlst.size());
@@ -69,7 +68,7 @@ int main(){
     print("foldl",Sum);
 
     auto Largest = accumulate(intlst.cbegin(),intlst.cend(),0,[](int x, int y){ return x > y ? x : y;});
-    print(Largest);
+    print("largest",Largest);
     
 //--------------------------------------------------------
     //foldl works from left inner parenthesis outwards
@@ -82,7 +81,7 @@ int main(){
             }
                 );
 
-    print(paren);
+    print("foldl",paren);
     //outputs ((((|M)S)F)T) for foldl
     //(((|M)S)F) is IH,   
     // T is nextStep
@@ -97,7 +96,7 @@ int main(){
         }
             );
 
-    print(parenR);
+    print("foldr",parenR);
     //outputs ((((|T)F)S)M) for foldr
     // can also be rewritten as (M(S(F(|T))))
     // (S(F(|T))) is IH
@@ -115,7 +114,7 @@ int main(){
         }
             );
 
-    print(Reverse);
+    print("foldr reverse",Reverse);
     return 0;
 
 }

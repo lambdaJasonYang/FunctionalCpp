@@ -5,45 +5,70 @@
 
 namespace FCP
 {
+    //single var print
     template <typename T>
-    void print(const T &t) {
-        std::cout << t << std::endl;
+    void print(const T &target) {
+        std::cout << target << std::endl;
     }
+    //labeled print
     template <typename O,typename T>
-    void print(const O label, const T &t) {
-        std::cout << label << ": " << t << std::endl;
+    void print(const O label, const T &target) {
+        std::cout << label << ": " << target << std::endl;
     }
+    //vector print
     template <typename T>
-    void print(const std::vector<T>& t) {
-        for(auto i: t){
+    void print(const std::vector<T>& target) {
+        std::cout << "[ ";
+        for(auto i: target){
             std::cout << i << " ";
         }
-    std::cout <<std::endl;
+        std::cout << "]" <<std::endl;
     }
+    //labeled vector print
     template <typename O,typename T>
-    void print(const O label,const std::vector<T>& t) {
-        std:: cout << label << ": ";
-        for(auto i: t){
+    void print(const O label,const std::vector<T>& target) {
+        std:: cout << label << ":[ ";
+        for(auto i: target){
             std::cout << i << " ";
         }
-    std::cout <<std::endl;
+    std::cout << "]"<<std::endl;
     }
+
+    // functional functions
     template <typename T, typename R, typename L>
-    void fmap(const T& t, R& result, L lambda ){
-        transform(t.cbegin(),t.cend(),result.begin(),lambda);
+    void fmap(const T& target, R& result, L lambda ){
+        transform(target.cbegin(),target.cend(),result.begin(),lambda);
     }
     template <typename T, typename B, typename L>
-    auto foldl(const T& t, const B base, L lambda ){
-        return accumulate(t.cbegin(),t.cend(),base,lambda);
+    auto foldl(const T& target, const B base, L lambda ){
+        return accumulate(target.cbegin(),target.cend(),base,lambda);
     }
 
     template <typename T, typename B, typename L>
-    auto foldr(const T& t, const B base, L lambda ){
-        return accumulate(t.crbegin(),t.crend(),base,lambda);
+    auto foldr(const T& target, const B base, L lambda ){
+        return accumulate(target.crbegin(),target.crend(),base,lambda);
     }
 
-    //functional format instead of  int maxd(){}, we  do auto maxd()-> int{}
-    auto maxd(int a, int b) -> int{
-        return 5;
+    template <typename T>
+    std::vector<T> tail(std::vector<T> target){
+        if(target.size() == 0 || target.size() == 1){
+            return std::vector<T>(target.begin(),target.begin());
+        }
+        return std::vector<T>(target.begin()+1,target.end());    
     }
+
+}
+//end of namespace 
+
+//overloading + operator of vector class
+template <typename T>
+std::vector<T> operator+(std::vector<T> Fst,std::vector<T> Snd ){
+    Fst.insert(Fst.end(),Snd.begin(),Snd.end());
+    return Fst;
+}
+
+template <typename T>
+std::vector<T> operator+(std::vector<T> Fst,T Snd ){
+    Fst.insert(Fst.end(),Snd);
+    return Fst;
 }
